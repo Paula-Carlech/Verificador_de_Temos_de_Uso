@@ -1,31 +1,27 @@
 import React, { useState } from 'react';
 import './App.css';
-import * as marked from 'marked';
-import TermoUsoInput from './components/TermosDeUsoInput';
-import Resumo from './components/Resumo';
+import MarkdownHighlighter from './components/Markdown';
 
 function App() {
-    const [termo, setTermo] = useState('');
-    const [resumo, setResumo] = useState('');
+  const [markdownText, setMarkdownText] = useState('');
 
-    const verificarTermo = () => {
-        const parsedTermo = marked(termo);
+  const handleInputChange = (e) => {
+    setMarkdownText(e.target.value);
+  };
 
-        setResumo(parsedTermo);
-    };
-
-    const limparTexto = () => {
-        setTermo('');
-    };
-
-    return (
-        <div className="App">
-            <h1>Verificador de Termos de Uso</h1>
-            <TermoUsoInput onChange={(e) => setTermo(e.target.value)} value={termo} />
-            <button onClick={verificarTermo}>Verificar</button>
-            <Resumo resumo={resumo} />
-        </div>
-    );
+  return (
+    <div className="App">
+      <h1>Verificador de Termos de Uso</h1>
+      <textarea
+        rows="10"
+        cols="50"
+        value={markdownText}
+        onChange={handleInputChange}
+        placeholder="Cole o termo de uso aqui..."
+      />
+      <MarkdownHighlighter markdownText={markdownText} />
+    </div>
+  );
 }
 
 export default App;
