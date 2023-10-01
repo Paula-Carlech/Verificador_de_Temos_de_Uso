@@ -2,23 +2,25 @@ import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
 function MarkdownHighlighter({ markdownText }) {
+  const regex = /(\*\*.*?\*\*|__.*?__|\*.*?\*|_.*?_|\[.*?\]\(.*?\)|#.*?#)/g;
 
-  const renderers = {
-    heading: (props) => {
-      const HeadingTag = `h${props.level}`;
-      return <HeadingTag>{props.children}</HeadingTag>;
-    },
-    strong: (props) => {
-      return <strong>{props.children}</strong>;
-    },
-    emphasis: (props) => {
-      return <em>{props.children}</em>;
-    },
-  };
+  const paragraphs = markdownText.split('\n\n');
 
   return (
     <div>
-      <ReactMarkdown components={renderers}>{markdownText}</ReactMarkdown>
+      {paragraphs.map((paragraph, index) => {
+        const hasMarkdown = paragraph.match(regex);
+
+        if (hasMarkdown) {
+          return (
+            <div key={index}>
+              <ReactMarkdown>{paragraph}</ReactMarkdown>
+            </div>
+          );
+        }
+
+        return null;
+      })}
     </div>
   );
 }
