@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
 import './App.css';
 import MarkdownHighlighter from './components/Markdown';
+import LimparInputTexto from './components/Delete';
 
 function App() {
   const [markdownText, setMarkdownText] = useState('');
 
   const handleInputChange = (e) => {
     setMarkdownText(e.target.value);
+  };
+
+  const limparTexto = () => {
+    setMarkdownText('');
   };
 
   return (
@@ -20,6 +25,7 @@ function App() {
         placeholder="Cole o termo de uso aqui..."
       />
       <MarkdownHighlighter markdownText={markdownText} />
+      <LimparInputTexto onClick={limparTexto} />
     </div>
   );
 }
