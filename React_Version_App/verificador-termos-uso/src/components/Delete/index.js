@@ -1,10 +1,11 @@
 import React from 'react';
-import { RiDeleteBin6Fill } from 'react-icons/ri';
+import { RiDeleteBinLine } from 'react-icons/ri';
+import './Delete.css';
 
 function LimparInputTexto({ onClick }) {
   return (
-    <button onClick={onClick}>
-        <RiDeleteBin6Fill />
+    <button className='delete' onClick={onClick}>
+        <RiDeleteBinLine size={20}/>
     </button>
   );
 }

@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import './Markdown.css';
 
 function MarkdownHighlighter({ markdownText }) {
   const regex = /(\*\*.*?\*\*|__.*?__|\*.*?\*|_.*?_|\[.*?\]\(.*?\)|#.*?#)/g;
 
-  const paragraphs = markdownText.split('\n\n');
+  const paragraphs = markdownText.split('\n');
 
   return (
-    <div>
+    <div className='resultado'>
       {paragraphs.map((paragraph, index) => {
         const hasMarkdown = paragraph.match(regex);
 

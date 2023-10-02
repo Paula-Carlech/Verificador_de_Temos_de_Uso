@@ -16,16 +16,27 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Verificador de Termos de Uso</h1>
+
+      <header className="cabecalho">
+        <div className="itemCabecalho">LOGO</div>
+        <div className="itemCabecalho">Link 1</div>
+        <div className="itemCabecalho">Link 2</div>
+        <div className="itemCabecalho">Link 3</div>
+        <div className="itemCabecalho">Link 4</div>
+      </header>
+
+      <h1>INSIRA OS TERMOS DE USO AQUI:</h1>
+
       <textarea
-        rows="10"
-        cols="50"
         value={markdownText}
         onChange={handleInputChange}
-        placeholder="Cole o termo de uso aqui..."
       />
-      <MarkdownHighlighter markdownText={markdownText} />
+
       <LimparInputTexto onClick={limparTexto} />
+
+      <MarkdownHighlighter markdownText={markdownText} />
+
+      <footer>Terms Of Use Advisor® 2023</footer>
     </div>
   );
 }
