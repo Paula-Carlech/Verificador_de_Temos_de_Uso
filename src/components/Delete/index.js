@@ -5,7 +5,7 @@ import './Delete.css';
 function LimparInputTexto({ onClick }) {
   return (
     <button className='delete' onClick={onClick}>
-        <RiDeleteBinLine size={20}/>
+      <RiDeleteBinLine size={20} />
     </button>
   );
 }

@@ -7,8 +7,22 @@
     margin: auto;
     width: 40vw;
     height: 25vh;
+    overflow-y: scroll;
 }
 
 .resultado:hover {
     border: none;
+}
+
+.resultado::-webkit-scrollbar {
+    width: 12px;
+}
+
+.resultado::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.resultado::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
 }

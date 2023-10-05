@@ -45,6 +45,20 @@ textarea {
   margin-bottom: 5px;
   width: 90vw;
   height: 35vh;
+  overflow-y: 'auto';
+}
+
+textarea::-webkit-scrollbar {
+  width: 12px;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
 }
 
 footer {

@@ -14,9 +14,9 @@ function MarkdownHighlighter({ markdownText }) {
 
         if (hasMarkdown) {
           return (
-            <div key={index}>
+            <p key={index}>
               <ReactMarkdown>{paragraph}</ReactMarkdown>
-            </div>
+            </p>
           );
         }
 

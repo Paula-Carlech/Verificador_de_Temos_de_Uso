@@ -27,12 +27,14 @@ function App() {
 
       <h1>INSIRA OS TERMOS DE USO AQUI:</h1>
 
-      <textarea
-        value={markdownText}
-        onChange={handleInputChange}
-      />
-
-      <LimparInputTexto onClick={limparTexto} />
+      <div style={{ position: 'relative', width: '100vw' }}>
+        <textarea
+          value={markdownText}
+          onChange={handleInputChange}
+          style={{ width: '90%', height: '35vh' }}
+        />
+        <LimparInputTexto onClick={limparTexto} />
+      </div>
 
       <MarkdownHighlighter markdownText={markdownText} />
 
