@@ -1,0 +1,10 @@
+.tituloSobre {
+    margin: 35px 0;
+}
+
+.textoSobre {
+    text-align: center;
+    justify-content: center;
+    margin: auto;
+    width: 70vw;
+  }

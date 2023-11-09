@@ -2,10 +2,10 @@
     justify-content: center;
     text-align: justify;
     background-color: #ffff;
-    border-radius: 10px;
+    border-radius: 5px;
     padding: 10px;
     margin: auto;
-    width: 40vw;
+    width: 85vw;
     height: 25vh;
     overflow-y: scroll;
 }

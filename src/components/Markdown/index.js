@@ -1,3 +1,5 @@
+// MarkdownHighlighter.js
+
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import './Markdown.css';
@@ -14,9 +16,9 @@ function MarkdownHighlighter({ markdownText }) {
 
         if (hasMarkdown) {
           return (
-            <p key={index}>
+            <div key={index} className="markdown-highlight">
               <ReactMarkdown>{paragraph}</ReactMarkdown>
-            </p>
+            </div>
           );
         }
 
