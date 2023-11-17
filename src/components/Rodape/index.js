@@ -6,7 +6,7 @@ function Footer() {
 
     return (
         <footer>
-            Terms Of Use Advisor ® {currentYear}
+            SysATU ® {currentYear}
         </footer>
     );
 }

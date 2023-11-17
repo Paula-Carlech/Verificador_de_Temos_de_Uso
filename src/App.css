@@ -46,3 +46,24 @@ textarea::-webkit-scrollbar-thumb {
   background-color: #888;
   border-radius: 10px;
 }
+
+/* Estilo para telas pequenas */
+@media only screen and (max-width: 600px) {
+  h1 {
+    font-size: 1em;
+    padding: 10px;
+  }
+
+  textarea {
+    width: 50vw;
+  }
+
+  .img {
+    width: 25px;
+  }
+}
+
+/* Estilo para telas médias */
+@media only screen and (min-width: 601px) and (max-width: 1024px) {
+  /* Adicione estilos específicos para telas médias */
+}

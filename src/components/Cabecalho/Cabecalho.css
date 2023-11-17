@@ -13,19 +13,29 @@
     margin: 0 50px;
     padding: 0;
 }
-.itemCabecalho:hover{
+
+.itemCabecalho:hover {
     color: #a8a8a8;
     cursor: pointer;
     transition: 0.3s;
 }
 
 .itemCabecalho img {
-    width: 120px;
+    width: 55px;
     margin: 0;
     padding: 0;
 }
 
 a {
     text-decoration: none;
-    color:inherit;
+    color: inherit;
+}
+
+/* Estilo para telas pequenas */
+@media only screen and (max-width: 600px) {
+    .itemCabecalho img {
+        width: 40px;
+        margin: 0;
+        padding: 0;
+    }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../images/tosa.png';
+import logo from '../../images/SysATU.png';
 import './Cabecalho.css';
 
 function Cabecalho() {
@@ -19,7 +19,7 @@ function Cabecalho() {
   return (
     <header className="cabecalho">
       <div className="itemCabecalho img">
-        <img src={logo} alt="Tosa" />
+        <img src={logo} alt="SysATU" />
       </div>
       <div className="itemCabecalho">
         <Link to="/sobre" onClick={handleLinkClick}>
