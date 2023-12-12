@@ -33,7 +33,7 @@ function App() {
                   <textarea
                     value={markdownText}
                     onChange={handleInputChange}
-                    style={{ width: '90%', height: '35vh' }}
+                    style={{ width: '90%', height: '35vh', resize: 'none' }}
                   />
                   <LimparInputTexto onClick={limparTexto} />
                 </div>
