@@ -12,7 +12,6 @@ import {
   Badge,
   rem,
   Stack,
-  Center,
 } from "@mantine/core";
 import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
 import {
@@ -26,11 +25,10 @@ import {
 } from "@tabler/icons-react";
 import * as pdfjsLib from "pdfjs-dist";
 
-// Configure PDF.js worker
-// We use a CDN to avoid complex Vite configuration issues with the worker file
 pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
-// Sub-component for results
+const PRIMARY_COL = "#434be7";
+
 const AIAnalysisResult = ({ analysis }) => {
   if (!analysis) return null;
 
@@ -69,20 +67,17 @@ export default function MainContent() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
 
-  // Clear all data
   const handleClear = () => {
     setText("");
     setResult(null);
   };
 
-  // Extract text from PDF file
   const extractTextFromPDF = async (file) => {
     try {
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
       let fullText = "";
 
-      // Loop through all pages
       for (let i = 1; i <= pdf.numPages; i++) {
         const page = await pdf.getPage(i);
         const textContent = await page.getTextContent();
@@ -97,7 +92,6 @@ export default function MainContent() {
     }
   };
 
-  // Handle drag and drop
   const handleDrop = async (files) => {
     setLoading(true);
     const file = files[0];
@@ -120,7 +114,6 @@ export default function MainContent() {
     }
   };
 
-  // Mock AI Analysis
   const handleAnalyze = async () => {
     if (!text) return;
     setLoading(true);
@@ -137,138 +130,150 @@ export default function MainContent() {
   };
 
   return (
-    <Center mih="calc(100vh - 160px)">
-      <Container size="sm" w="100%">
-        <Stack gap="lg">
-          {/* Header Title Area */}
-          <div>
-            <Title order={1} ta="center" mb="xs">
-              Verifique a segurança do seu contrato
-            </Title>
-            <Text c="dimmed" ta="center">
-              Arraste um arquivo ou cole os termos de uso abaixo para análise.
-            </Text>
-          </div>
+    <Container size="md" w="100%" my="auto">
+      <Stack gap="lg">
+        <div>
+          <Title order={2} ta="center" mb={5} style={{ color: PRIMARY_COL }}>
+            Verifique a segurança do seu contrato
+          </Title>
+          <Text c="dimmed" ta="center" size="sm">
+            Arraste um arquivo ou cole os termos de uso abaixo para análise.
+          </Text>
+        </div>
 
-          <div style={{ position: "relative" }}>
-            <LoadingOverlay
-              visible={loading}
-              zIndex={1000}
-              overlayProps={{ radius: "sm", blur: 2 }}
-            />
+        <div style={{ position: "relative" }}>
+          <LoadingOverlay
+            visible={loading}
+            zIndex={1000}
+            overlayProps={{ radius: "sm", blur: 2 }}
+          />
 
-            {/* File Dropzone */}
-            <Dropzone
-              onDrop={handleDrop}
-              onReject={(files) => console.log("rejected files", files)}
-              maxSize={5 * 1024 ** 2}
-              accept={[
-                MIME_TYPES.markdown,
-                "text/plain",
-                "application/json",
-                MIME_TYPES.pdf,
-              ]}
-              mb="md"
-              radius="md"
-              styles={{ root: { borderWidth: 1, borderStyle: "dashed" } }}
+          <Dropzone
+            onDrop={handleDrop}
+            onReject={(files) => console.log("rejected files", files)}
+            maxSize={5 * 1024 ** 2}
+            accept={[
+              MIME_TYPES.markdown,
+              "text/plain",
+              "application/json",
+              MIME_TYPES.pdf,
+            ]}
+            mb="md"
+            radius="md"
+            styles={{
+              root: {
+                borderWidth: 1,
+                borderStyle: "dashed",
+                borderColor: PRIMARY_COL,
+                backgroundColor: "rgba(67, 75, 231, 0.05)",
+                padding: "20px",
+              },
+            }}
+          >
+            <Group
+              justify="center"
+              gap="xl"
+              mih={80}
+              style={{ pointerEvents: "none" }}
             >
-              <Group
-                justify="center"
-                gap="xl"
-                mih={100}
-                style={{ pointerEvents: "none" }}
-              >
-                <Dropzone.Accept>
-                  <IconUpload
+              <Dropzone.Accept>
+                <IconUpload
+                  style={{
+                    width: rem(52),
+                    height: rem(52),
+                    color: PRIMARY_COL,
+                  }}
+                  stroke={1.5}
+                />
+              </Dropzone.Accept>
+              <Dropzone.Reject>
+                <IconX
+                  style={{
+                    width: rem(52),
+                    height: rem(52),
+                    color: "var(--mantine-color-red-6)",
+                  }}
+                  stroke={1.5}
+                />
+              </Dropzone.Reject>
+              <Dropzone.Idle>
+                <Group gap="md">
+                  <IconFileTypePdf
                     style={{
-                      width: rem(52),
-                      height: rem(52),
-                      color: "var(--mantine-color-blue-6)",
+                      width: rem(40),
+                      height: rem(40),
+                      color: PRIMARY_COL,
+                    }}
+                    stroke={1.5}
+                    filled
+                  />
+                  <IconFileTypeTxt
+                    style={{
+                      width: rem(40),
+                      height: rem(40),
+                      color: PRIMARY_COL,
                     }}
                     stroke={1.5}
                   />
-                </Dropzone.Accept>
-                <Dropzone.Reject>
-                  <IconX
-                    style={{
-                      width: rem(52),
-                      height: rem(52),
-                      color: "var(--mantine-color-red-6)",
-                    }}
-                    stroke={1.5}
-                  />
-                </Dropzone.Reject>
-                <Dropzone.Idle>
-                  <Group gap="xs">
-                    <IconFileTypePdf
-                      style={{
-                        width: rem(42),
-                        height: rem(42),
-                        color: "var(--mantine-color-dimmed)",
-                      }}
-                      stroke={1.5}
-                    />
-                    <IconFileTypeTxt
-                      style={{
-                        width: rem(32),
-                        height: rem(32),
-                        color: "var(--mantine-color-gray-4)",
-                      }}
-                      stroke={1.5}
-                    />
-                  </Group>
-                </Dropzone.Idle>
+                </Group>
+              </Dropzone.Idle>
 
-                <div>
-                  <Text size="lg" inline ta="center">
-                    Arraste o arquivo aqui
-                  </Text>
-                  <Text size="sm" c="dimmed" inline mt={7} ta="center">
-                    PDF, TXT ou MD (até 5MB)
-                  </Text>
-                </div>
-              </Group>
-            </Dropzone>
+              <div>
+                <Text size="md" inline ta="left" fw={500}>
+                  Arraste o arquivo aqui
+                </Text>
+                <Text size="xs" c="dimmed" inline mt={7} ta="left">
+                  (PDF, TXT ou MD até 5MB)
+                </Text>
+              </div>
+            </Group>
+          </Dropzone>
 
-            {/* Manual Text Input */}
-            <Textarea
-              placeholder="Ou cole o texto manualmente aqui..."
-              label="Conteúdo do Contrato"
-              autosize
-              minRows={6}
-              maxRows={12}
-              value={text}
-              onChange={(event) => setText(event.currentTarget.value)}
-            />
-          </div>
+          <Textarea
+            placeholder="Ou cole o texto manualmente aqui..."
+            label="Conteúdo do Contrato"
+            autosize
+            minRows={6}
+            maxRows={12}
+            radius="md"
+            value={text}
+            onChange={(event) => setText(event.currentTarget.value)}
+            styles={{
+              input: {
+                borderColor: "#e0e0e0",
+                backgroundColor: "#f8f9fa",
+              },
+            }}
+          />
+        </div>
 
-          {/* Action Buttons */}
-          <Group justify="center" mt="xs">
-            <Button
-              variant="subtle"
-              color="gray"
-              onClick={handleClear}
-              leftSection={<IconTrash size={16} />}
-              disabled={!text}
-            >
-              Limpar
-            </Button>
+        <Group justify="center" mt="xs">
+          <Button
+            radius="xl"
+            color={PRIMARY_COL}
+            onClick={handleClear}
+            leftSection={<IconTrash size={16} />}
+            disabled={!text}
+            size="md"
+          >
+            Limpar
+          </Button>
 
-            <Button
-              onClick={handleAnalyze}
-              leftSection={<IconBrain size={16} />}
-              disabled={!text}
-              loading={loading}
-              size="md"
-            >
-              Analisar com IA
-            </Button>
-          </Group>
+          <Button
+            radius="xl"
+            color={PRIMARY_COL}
+            onClick={handleAnalyze}
+            leftSection={<IconBrain size={16} />}
+            disabled={!text}
+            loading={loading}
+            size="md"
+          >
+            Analisar
+          </Button>
+        </Group>
 
-          {/* Results Component */}
-          <AIAnalysisResult analysis={result} />
-        </Stack>
-      </Container>
-    </Center>
+        <AIAnalysisResult analysis={result} />
+      </Stack>
+    </Container>
   );
 }

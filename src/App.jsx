@@ -9,7 +9,7 @@ import MainContent from "./components/MainContent";
 export default function App() {
   return (
     <MantineProvider>
-      <AppShell header={{ height: 60 }} footer={{ height: 60 }} padding="md">
+      <AppShell header={{ height: 60 }} footer={{ height: 60 }} padding="0">
         <Header />
 
         <AppShell.Main>
