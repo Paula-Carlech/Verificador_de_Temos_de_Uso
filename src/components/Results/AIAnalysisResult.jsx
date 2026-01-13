@@ -1,42 +1,60 @@
-import React from "react";
-import { Card, Group, Text, Badge, Alert } from "@mantine/core";
-import { IconAlertTriangle } from "@tabler/icons-react";
+import { Card, Group, Text, Badge, Alert, Stack } from "@mantine/core";
+import { IconAlertTriangle, IconCheck } from "@tabler/icons-react";
 
 const AIAnalysisResult = ({ analysis }) => {
   if (!analysis) return null;
 
+  const points = analysis.result?.points || [];
+  const hasRisks = points.length > 0;
+
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder mt="md">
-      <Group justify="space-between" mb="xs">
+      <Group justify="space-between" mb="md">
         <Text fw={500}>Análise</Text>
-        <Badge color="red" variant="light">
-          Risco Detectado
-        </Badge>
+
+        {hasRisks ? (
+          <Badge color="red" variant="light">
+            Risco Detectado
+          </Badge>
+        ) : (
+          <Badge color="green" variant="light">
+            Seguro
+          </Badge>
+        )}
       </Group>
 
-      <Text size="sm" c="dimmed" mb="md" ta="left">
-        Encontramos os seguintes pontos de atenção no contrato:
-      </Text>
+      {hasRisks && (
+        <Text size="sm" c="dimmed" mb="md" ta="left">
+          Encontramos os seguintes pontos de atenção no contrato:
+        </Text>
+      )}
 
-      {analysis.points && analysis.points.length > 0 ? (
-        analysis.points.map((point, index) => (
+      <Stack gap="sm">
+        {hasRisks ? (
+          points.map((point, index) => (
+            <Alert
+              variant="light"
+              color="orange"
+              title="Atenção"
+              icon={<IconAlertTriangle size={16} />}
+              key={index}
+              ta="left"
+            >
+              {point}
+            </Alert>
+          ))
+        ) : (
           <Alert
             variant="light"
-            color="orange"
-            title="Atenção"
-            icon={<IconAlertTriangle />}
-            key={index}
-            mb="sm"
+            color="green"
+            title="Tudo Certo"
+            icon={<IconCheck size={16} />}
             ta="left"
           >
-            {point}
+            Nenhum risco foi detectado neste documento.
           </Alert>
-        ))
-      ) : (
-        <Alert variant="light" color="green" title="Tudo Certo" ta="left">
-          Nenhum risco óbvio foi detectado neste trecho.
-        </Alert>
-      )}
+        )}
+      </Stack>
     </Card>
   );
 };
