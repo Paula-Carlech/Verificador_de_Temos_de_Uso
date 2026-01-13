@@ -7,9 +7,6 @@ import {
   Text,
   Group,
   LoadingOverlay,
-  Alert,
-  Card,
-  Badge,
   rem,
   Stack,
 } from "@mantine/core";
@@ -17,50 +14,16 @@ import { Dropzone, MIME_TYPES } from "@mantine/dropzone";
 import {
   IconTrash,
   IconBrain,
-  IconAlertTriangle,
   IconUpload,
   IconX,
   IconFileTypeTxt,
   IconFileTypePdf,
 } from "@tabler/icons-react";
-import * as pdfjsLib from "pdfjs-dist";
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
-
-const PRIMARY_COL = "#434be7";
-
-const AIAnalysisResult = ({ analysis }) => {
-  if (!analysis) return null;
-
-  return (
-    <Card shadow="sm" padding="lg" radius="md" withBorder mt="md">
-      <Group justify="space-between" mb="xs">
-        <Text fw={500}>Análise da IA</Text>
-        <Badge color="red" variant="light">
-          Risco Detectado
-        </Badge>
-      </Group>
-
-      <Text size="sm" c="dimmed" mb="md" ta="left">
-        Encontramos os seguintes pontos de atenção no contrato:
-      </Text>
-
-      {analysis.points.map((point, index) => (
-        <Alert
-          variant="light"
-          color="orange"
-          title="Atenção"
-          icon={<IconAlertTriangle />}
-          key={index}
-          mb="sm"
-          ta="left"
-        >
-          {point}
-        </Alert>
-      ))}
-    </Card>
-  );
-};
+import { PRIMARY_COL } from "../constants/theme";
+import { extractTextFromPDF } from "../utils/pdfParser";
+import { analyzeContract } from "../services/api";
+import AIAnalysisResult from "./Results/AIAnalysisResult";
 
 export default function MainContent() {
   const [text, setText] = useState("");
@@ -70,26 +33,6 @@ export default function MainContent() {
   const handleClear = () => {
     setText("");
     setResult(null);
-  };
-
-  const extractTextFromPDF = async (file) => {
-    try {
-      const arrayBuffer = await file.arrayBuffer();
-      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
-      let fullText = "";
-
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        const textContent = await page.getTextContent();
-        const pageText = textContent.items.map((item) => item.str).join(" ");
-        fullText += pageText + "\n\n";
-      }
-      return fullText;
-    } catch (error) {
-      console.error("Error reading PDF:", error);
-      alert("Erro ao ler o PDF.");
-      return "";
-    }
   };
 
   const handleDrop = async (files) => {
@@ -109,6 +52,7 @@ export default function MainContent() {
       }
     } catch (error) {
       console.error("Error processing file", error);
+      alert("Erro ao processar o arquivo.");
     } finally {
       setLoading(false);
     }
@@ -117,16 +61,17 @@ export default function MainContent() {
   const handleAnalyze = async () => {
     if (!text) return;
     setLoading(true);
-    setTimeout(() => {
-      setResult({
-        points: [
-          "O contrato menciona venda de dados a terceiros.",
-          "Renovação automática difícil de cancelar.",
-          "Foro de eleição internacional.",
-        ],
-      });
+    setResult(null);
+
+    try {
+      const data = await analyzeContract(text);
+      setResult(data);
+    } catch (error) {
+      console.error(error);
+      alert("Erro ao analisar contrato. Verifique se o Backend está rodando!");
+    } finally {
       setLoading(false);
-    }, 2000);
+    }
   };
 
   return (
