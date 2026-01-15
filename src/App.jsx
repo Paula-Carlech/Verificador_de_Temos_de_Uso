@@ -6,6 +6,7 @@ import "./App.css";
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
 import MainContent from "./components/MainContent";
+import AboutModal from "./components/AboutModal";
 
 export default function App() {
   return (
@@ -16,6 +17,8 @@ export default function App() {
         <AppShell.Main className="main-container">
           <MainContent />
         </AppShell.Main>
+
+        <AboutModal />
 
         <Footer />
       </AppShell>
