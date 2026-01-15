@@ -24,10 +24,54 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Layout class adjusted to move content closer to top/bottom */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Keeps horizontal centering */
+  min-height: calc(100vh - 120px);
+  width: 100%;
+  padding-top: 2rem; /* Adjust this value to get closer/further from header */
+  padding-bottom: 2rem; /* Adjust this value to get closer/further from footer */
+}
+
+.main-title {
+  color: #434be7 !important;
+}
+
+.file-paper {
+  border-color: #434be7 !important;
+  background-color: rgba(67, 75, 231, 0.05) !important;
+}
+
+.dropzone-root {
+  border-width: 1px !important;
+  border-style: dashed !important;
+  border-color: #434be7 !important;
+  background-color: rgba(67, 75, 231, 0.05) !important;
+  padding: 20px !important;
+}
+
+.textarea-input {
+  border-color: #e0e0e0 !important;
+  background-color: #f8f9fa !important;
+}
+
+.relative-container {
+  position: relative;
+}
+
+.pointer-none {
+  pointer-events: none;
 }
 
 h1 {
@@ -46,9 +90,11 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;

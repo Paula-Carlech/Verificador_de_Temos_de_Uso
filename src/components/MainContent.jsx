@@ -26,6 +26,7 @@ import {
 import { PRIMARY_COL } from "../constants/theme";
 import { analyzeContract } from "../services/api";
 import AIAnalysisResult from "./Results/AIAnalysisResult";
+import "../App.css";
 
 export default function MainContent() {
   const [text, setText] = useState("");
@@ -56,10 +57,8 @@ export default function MainContent() {
 
   const handleAnalyze = async () => {
     if (!text && !file) return;
-
     setLoading(true);
     setResult(null);
-
     try {
       const data = await analyzeContract(text, file);
       setResult(data);
@@ -72,10 +71,10 @@ export default function MainContent() {
   };
 
   return (
-    <Container size="md" w="100%" my="auto">
+    <Container size="sm" py="xl">
       <Stack gap="lg">
         <div>
-          <Title order={2} ta="center" mb={5} style={{ color: PRIMARY_COL }}>
+          <Title order={2} ta="center" mb={5} className="main-title">
             Verifique a segurança do seu contrato
           </Title>
           <Text c="dimmed" ta="center" size="sm">
@@ -83,7 +82,7 @@ export default function MainContent() {
           </Text>
         </div>
 
-        <div style={{ position: "relative" }}>
+        <div className="relative-container">
           <LoadingOverlay
             visible={loading}
             zIndex={1000}
@@ -91,16 +90,7 @@ export default function MainContent() {
           />
 
           {file ? (
-            <Paper
-              withBorder
-              p="md"
-              radius="md"
-              mb="md"
-              style={{
-                borderColor: PRIMARY_COL,
-                backgroundColor: "rgba(67, 75, 231, 0.05)",
-              }}
-            >
+            <Paper withBorder p="md" radius="md" mb="md" className="file-paper">
               <Group justify="space-between">
                 <Group>
                   <IconFileCheck color={PRIMARY_COL} />
@@ -121,52 +111,18 @@ export default function MainContent() {
           ) : (
             <Dropzone
               onDrop={handleDrop}
-              onReject={(files) => console.log("rejected files", files)}
               maxSize={5 * 1024 ** 2}
-              accept={[
-                "text/markdown",
-                "text/plain",
-                "application/json",
-                MIME_TYPES.pdf,
-              ]}
+              accept={["text/plain", MIME_TYPES.pdf]}
               mb="md"
               radius="md"
-              styles={{
-                root: {
-                  borderWidth: 1,
-                  borderStyle: "dashed",
-                  borderColor: PRIMARY_COL,
-                  backgroundColor: "rgba(67, 75, 231, 0.05)",
-                  padding: "20px",
-                },
-              }}
+              className="dropzone-root" // Applied to the root element
             >
               <Group
                 justify="center"
                 gap="xl"
                 mih={80}
-                style={{ pointerEvents: "none" }}
+                className="pointer-none"
               >
-                <Dropzone.Accept>
-                  <IconUpload
-                    style={{
-                      width: rem(52),
-                      height: rem(52),
-                      color: PRIMARY_COL,
-                    }}
-                    stroke={1.5}
-                  />
-                </Dropzone.Accept>
-                <Dropzone.Reject>
-                  <IconX
-                    style={{
-                      width: rem(52),
-                      height: rem(52),
-                      color: "var(--mantine-color-red-6)",
-                    }}
-                    stroke={1.5}
-                  />
-                </Dropzone.Reject>
                 <Dropzone.Idle>
                   <Group gap="md">
                     <IconFileTypePdf
@@ -175,7 +131,6 @@ export default function MainContent() {
                         height: rem(40),
                         color: PRIMARY_COL,
                       }}
-                      stroke={1.5}
                     />
                     <IconFileTypeTxt
                       style={{
@@ -183,16 +138,14 @@ export default function MainContent() {
                         height: rem(40),
                         color: PRIMARY_COL,
                       }}
-                      stroke={1.5}
                     />
                   </Group>
                 </Dropzone.Idle>
-
                 <div>
-                  <Text size="md" inline ta="left" fw={500}>
+                  <Text size="md" inline fw={500}>
                     Arraste o PDF aqui
                   </Text>
-                  <Text size="xs" c="dimmed" inline mt={7} ta="left">
+                  <Text size="xs" c="dimmed" inline mt={7}>
                     (Ou clique para selecionar)
                   </Text>
                 </div>
@@ -201,7 +154,7 @@ export default function MainContent() {
           )}
 
           <Textarea
-            placeholder="Se preferir, cole o texto manualmente ou adicione observações..."
+            placeholder="Se preferir, cole o texto manualmente..."
             label="Conteúdo ou Observações"
             autosize
             minRows={4}
@@ -209,12 +162,7 @@ export default function MainContent() {
             radius="md"
             value={text}
             onChange={(event) => setText(event.currentTarget.value)}
-            styles={{
-              input: {
-                borderColor: "#e0e0e0",
-                backgroundColor: "#f8f9fa",
-              },
-            }}
+            classNames={{ input: "textarea-input" }}
           />
         </div>
 
@@ -225,11 +173,9 @@ export default function MainContent() {
             onClick={handleClear}
             leftSection={<IconTrash size={16} />}
             disabled={!text && !file}
-            size="md"
           >
             Limpar
           </Button>
-
           <Button
             radius="xl"
             color={PRIMARY_COL}
@@ -237,7 +183,6 @@ export default function MainContent() {
             leftSection={<IconBrain size={16} />}
             disabled={!text && !file}
             loading={loading}
-            size="md"
           >
             Analisar
           </Button>
