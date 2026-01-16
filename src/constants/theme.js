@@ -1,0 +1,1 @@
+export const PRIMARY_COL = "#434be7";

@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# SysATU - Analisador de Termos de Uso e Contratos
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+O **SysATU** é uma ferramenta inteligente projetada para simplificar a leitura e compreensão de documentos jurídicos digitais. O projeto utiliza Inteligência Artificial para identificar cláusulas abusivas, riscos potenciais e pontos de atenção em Termos de Uso e contratos.
 
-## Available Scripts
+## 🚀 Evolução do Projeto
 
-In the project directory, you can run:
+Este projeto nasceu originalmente em **2023 como um Trabalho de Conclusão de Curso (TCC)**. Inicialmente focado em uma abordagem estática e explicativa, o SysATU passou por um processo de **atualização e modernização** completo para se tornar uma aplicação dinâmica e preditiva impulsionada por IA.
 
-### `npm start`
+### Comparativo de Evolução
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+| Característica | Versão 2023 (TCC) | Versão 2026 (Modernizada) |
+| :--- | :--- | :--- |
+| **Tecnologia Base** | PHP Estático / Symfony 3.4 | React + Symfony Moderno |
+| **Análise** | Manual / Consultiva | Inteligência Artificial (Gemini) |
+| **Entrada** | Apenas Texto | Texto e PDF |
+| **Interface** | Tradicional | Minimalista (Mantine UI) |
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 📸 Demonstração Visual
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Interface Principal
+**Versão Antiga (2023):**
+<img width="2553" height="859" alt="sysatu(antigo)" src="https://github.com/user-attachments/assets/0e6af565-549a-4ad7-844e-d78f0db875ba" />
 
-### `npm run build`
+**Versão Nova (2026):**
+<img width="2539" height="878" alt="sysATU(novo)" src="https://github.com/user-attachments/assets/fc9918e1-659d-46f4-bab0-5cedaed8f6f7" />
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Seção "Sobre"
+**Versão Antiga (2023):**
+<img width="2546" height="866" alt="sobre(antigo)" src="https://github.com/user-attachments/assets/af47350f-5595-40b6-ae5d-f696ba8e44d2" />
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+**Versão Nova (2026):**
+<img width="2545" height="871" alt="sobre(novo)" src="https://github.com/user-attachments/assets/70b52b81-0eb3-4d2f-9c55-e785fbf3f3bc" />
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🧠 Como Funciona
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+O sistema oferece uma interface intuitiva onde o usuário pode:
+1.  **Fazer upload** de contratos em formato PDF ou TXT.
+2.  **Colar o texto** manualmente para análise imediata.
+3.  **Processamento por IA**: O backend em Symfony integra-se à API do Google Gemini para realizar uma varredura jurídica.
+4.  **Feedback Visual**: O sistema retorna alertas claros sobre riscos detectados (ex: venda de dados, renovação automática).
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🛠️ Tecnologias Utilizadas
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Frontend
+-   **React** com Vite.
+-   **Mantine UI**: Interface moderna e acessível.
+-   **Tabler Icons**: Identidade visual intuitiva.
 
-## Learn More
+### Backend
+-   **PHP 8.2+** e **Symfony Framework**.
+-   **API Platform**: Endpoints padronizados.
+-   **Smalot PDF Parser**: Extração de texto de PDFs.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Inteligência Artificial
+-   **Google Gemini IA**: Motor de processamento de linguagem natural.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🎨 Layout e Design
 
-### Code Splitting
+O design é focado na funcionalidade. O layout utiliza componentes centralizados para facilitar o fluxo de uso e conta com um botão flutuante de informações ("Sobre") que abre um modal moderno com o histórico do projeto.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+*SysATU ® 2023 - 2026*
