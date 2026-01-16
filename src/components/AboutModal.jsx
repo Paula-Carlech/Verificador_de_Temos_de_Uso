@@ -1,12 +1,4 @@
-import {
-  Modal,
-  ActionIcon,
-  Text,
-  Title,
-  Stack,
-  Affix,
-  rem,
-} from "@mantine/core";
+import { Modal, ActionIcon, Text, Stack, Affix, rem } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { IconInfoCircle } from "@tabler/icons-react";
 import { PRIMARY_COL } from "../constants/theme";
@@ -33,9 +25,9 @@ export default function AboutModal() {
         opened={opened}
         onClose={close}
         title={
-          <Title order={3} c={PRIMARY_COL}>
+          <Text fw={700} size="xl" style={{ color: PRIMARY_COL }}>
             Sobre o SysATU
-          </Title>
+          </Text>
         }
         centered
         radius="md"
