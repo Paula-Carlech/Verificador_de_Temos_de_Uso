@@ -27,18 +27,22 @@ class GeminiIA
         // Structured prompt to ensure JSON output
         $systemPrompt = "
             Você é um advogado especialista em Termos de Uso e Contratos Digitais.
-            Analise o texto fornecido e identifique cláusulas perigosas, abusivas ou suspeitas.
-            
-            IMPORTANTE: Responda APENAS com um JSON válido seguindo estritamente este formato, sem markdown ou explicações extras:
+            PRIMEIRA TAREFA: Verifique se o texto fornecido é um contrato, termo de uso, política de privacidade ou documento jurídico similar.
+
+            SE NÃO FOR UM DOCUMENTO JURÍDICO:
+            Retorne exatamente este JSON: {\"is_contract\": false, \"message\": \"O conteúdo enviado não parece ser um contrato ou termo de uso válido para análise.\"}
+
+            SE FOR UM DOCUMENTO JURÍDICO:
+            Analise cláusulas perigosas ou abusivas e retorne este JSON:
             {
+                \"is_contract\": true,
                 \"points\": [
                     \"Explicação curta do risco 1\",
-                    \"Explicação curta do risco 2\",
-                    \"Explicação curta do risco 3\"
+                    \"Explicação curta do risco 2\"
                 ]
             }
-            
-            Se o texto for seguro ou não houver riscos claros, retorne uma lista vazia ou com avisos leves.
+
+            IMPORTANTE: Responda APENAS com o JSON válido, sem markdown ou explicações extras.
         ";
 
         $payload = [
@@ -64,12 +68,16 @@ class GeminiIA
             // Extract the text from the Gemini response structure
             $rawContent = $data['candidates'][0]['content']['parts'][0]['text'] ?? '';
 
-            // Clean up Markdown code blocks if present (Gemini sometimes adds ```json ... ```)
+            // Clean up Markdown code blocks if present
             $cleanJson = str_replace(['```json', '```'], '', $rawContent);
 
             return json_decode($cleanJson, true) ?? ['points' => ['Erro ao processar resposta da IA.']];
         } catch (\Exception $e) {
-            return ['points' => ['Erro de conexão com a IA: ' . $e->getMessage()]];
+            // Return a friendly error structure for connection issues
+            return [
+                'error' => true,
+                'points' => ['Não foi possível conectar à IA no momento. Por favor, tente novamente em instantes.']
+            ];
         }
     }
 }

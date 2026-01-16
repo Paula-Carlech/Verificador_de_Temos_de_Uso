@@ -1,36 +1,67 @@
 import { Card, Group, Text, Badge, Alert, Stack } from "@mantine/core";
-import { IconAlertTriangle, IconCheck } from "@tabler/icons-react";
+import {
+  IconAlertTriangle,
+  IconCheck,
+  IconFileOff,
+  IconServerOff,
+} from "@tabler/icons-react";
 
 const AIAnalysisResult = ({ analysis }) => {
+  // If no analysis object yet, show nothing
   if (!analysis) return null;
 
-  const points = analysis.result?.points || [];
+  // Validation for invalid content (non-contract)
+  if (analysis.is_contract === false) {
+    return (
+      <Alert
+        variant="light"
+        color="blue"
+        title="Documento Inválido"
+        icon={<IconFileOff size={16} />}
+        mt="md"
+      >
+        {analysis.message ||
+          "O conteúdo enviado não parece ser um contrato válido."}
+      </Alert>
+    );
+  }
+
+  const points = analysis.points || [];
+  const isError = analysis.error === true;
+
+  /* We only consider it "Safe" if:
+     - It IS a contract (is_contract: true)
+     - There are NO risk points
+     - There is NO error
+  */
+  const isSafe =
+    analysis.is_contract === true && points.length === 0 && !isError;
   const hasRisks = points.length > 0;
 
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder mt="md">
       <Group justify="space-between" mb="md">
-        <Text fw={500}>Análise</Text>
+        <Text fw={500}>{isError ? "Falha na Análise" : "Análise"}</Text>
 
-        {hasRisks ? (
-          <Badge color="red" variant="light">
-            Risco Detectado
-          </Badge>
-        ) : (
-          <Badge color="green" variant="light">
-            Seguro
+        {!isError && analysis.is_contract && (
+          <Badge color={hasRisks ? "red" : "green"} variant="light">
+            {hasRisks ? "Risco Detectado" : "Seguro"}
           </Badge>
         )}
       </Group>
 
-      {hasRisks && (
-        <Text size="sm" c="dimmed" mb="md" ta="left">
-          Encontramos os seguintes pontos de atenção no contrato:
-        </Text>
-      )}
-
       <Stack gap="sm">
-        {hasRisks ? (
+        {isError ? (
+          <Alert
+            variant="light"
+            color="red"
+            title="Serviço Indisponível"
+            icon={<IconServerOff size={16} />}
+            ta="left"
+          >
+            {points[0] || "Erro desconhecido na conexão com a IA."}
+          </Alert>
+        ) : hasRisks ? (
           points.map((point, index) => (
             <Alert
               variant="light"
@@ -43,7 +74,7 @@ const AIAnalysisResult = ({ analysis }) => {
               {point}
             </Alert>
           ))
-        ) : (
+        ) : isSafe ? (
           <Alert
             variant="light"
             color="green"
@@ -53,7 +84,7 @@ const AIAnalysisResult = ({ analysis }) => {
           >
             Nenhum risco foi detectado neste documento.
           </Alert>
-        )}
+        ) : null}
       </Stack>
     </Card>
   );

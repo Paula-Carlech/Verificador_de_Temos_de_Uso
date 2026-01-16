@@ -64,7 +64,12 @@ export default function MainContent() {
       setResult(data);
     } catch (error) {
       console.error(error);
-      alert(`Erro: ${error.message}`);
+      setResult({
+        error: true,
+        points: [
+          "Não foi possível estabelecer conexão com o servidor. Verifique se o backend está rodando.",
+        ],
+      });
     } finally {
       setLoading(false);
     }
@@ -115,7 +120,7 @@ export default function MainContent() {
               accept={["text/plain", MIME_TYPES.pdf]}
               mb="md"
               radius="md"
-              className="dropzone-root" // Applied to the root element
+              className="dropzone-root"
             >
               <Group
                 justify="center"

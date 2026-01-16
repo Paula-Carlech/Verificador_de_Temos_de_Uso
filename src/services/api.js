@@ -14,5 +14,7 @@ export const analyzeContract = async (text, file) => {
         throw new Error(errorData.detail || "Erro ao comunicar com o servidor");
     }
 
-    return await response.json();
+    const data = await response.json();
+
+    return data.result;
 };
