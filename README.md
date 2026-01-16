@@ -21,19 +21,19 @@ Este projeto nasceu originalmente em **2023 como um Trabalho de Conclusão de Cu
 
 ### Interface Principal
 **Versão Antiga (2023):**
-![Versão Antiga do SysATU](sysatu(antigo).png)
+<img width="2553" height="859" alt="sysatu(antigo)" src="https://github.com/user-attachments/assets/0e6af565-549a-4ad7-844e-d78f0db875ba" />
 
 **Versão Nova (2026):**
-![Versão Nova do SysATU](sysatu(novo).png)
+<img width="2539" height="878" alt="sysATU(novo)" src="https://github.com/user-attachments/assets/fc9918e1-659d-46f4-bab0-5cedaed8f6f7" />
 
 ---
 
 ### Seção "Sobre"
 **Versão Antiga (2023):**
-![Sobre Antigo](sobre(antigo).png)
+<img width="2546" height="866" alt="sobre(antigo)" src="https://github.com/user-attachments/assets/af47350f-5595-40b6-ae5d-f696ba8e44d2" />
 
 **Versão Nova (2026):**
-![Sobre Novo com Modal](sobre(novo).png)
+<img width="2545" height="871" alt="sobre(novo)" src="https://github.com/user-attachments/assets/70b52b81-0eb3-4d2f-9c55-e785fbf3f3bc" />
 
 ---
 
